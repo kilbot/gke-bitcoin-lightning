@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bitcoind
+  labels:
+    app: bitcoind
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bitcoind
+  template:
+    metadata:
+      labels:
+        app: bitcoind
+    spec:
+      containers:
+        - name: bitcoind
+          image: ruimarinho/bitcoin-core:0.17
+          env:
+            - name: BITCOIN_RPC_USER
+              valueFrom:
+                secretKeyRef:
+                  name: bitcoin-secret
+                  key: rpcuser
+            - name: BITCOIN_RPC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: bitcoin-secret
+                  key: rpcpass
+          # resources:
+          #   requests:
+          #     memory: "4Gi"
+          #     cpu: "1000m"
+          #   limits:
+          #     memory: "4Gi"
+          #     cpu: "2000m"
+          ports:
+            - containerPort: 8332
+            - containerPort: 8333
+            - containerPort: 18332
+            - containerPort: 18333
+            - containerPort: 18443
+            - containerPort: 18444
+          volumeMounts:
+            - name: bitcoind-data
+              mountPath: /home/bitcoin/.bitcoin
+      volumes:
+        - name: bitcoind-data
+          persistentVolumeClaim:
+            claimName: bitcoind-pv-claim
