@@ -33,6 +33,9 @@ $ kubectl get pod -l app=bitcoind
 
 # (optional) exec into bitcoin pod
 $ kubectl exec -it <POD NAME>  bash
+
+# (optional) edit pod
+$ kubectl apply -f bitcoin.yaml
 ```
 
 ## Step 3: Create Bitcoin service

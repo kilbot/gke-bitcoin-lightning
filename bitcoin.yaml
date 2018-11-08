@@ -19,6 +19,15 @@ spec:
       containers:
         - name: bitcoind
           image: ruimarinho/bitcoin-core:0.17
+          args:
+            - -server
+            - -rest
+            - -txindex
+            - -debug=rpc,http
+            - -dbcache=1024
+            - -rpcpassword=$(BITCOIN_RPC_USER)
+            - -rpcuser=$(BITCOIN_RPC_PASSWORD)
+            - -rpcallowip=10.28.0.0/14
           env:
             - name: BITCOIN_RPC_USER
               valueFrom:
@@ -30,13 +39,6 @@ spec:
                 secretKeyRef:
                   name: bitcoin-secret
                   key: rpcpass
-          # resources:
-          #   requests:
-          #     memory: "4Gi"
-          #     cpu: "1000m"
-          #   limits:
-          #     memory: "4Gi"
-          #     cpu: "2000m"
           ports:
             - containerPort: 8332
             - containerPort: 8333
