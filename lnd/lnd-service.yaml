@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lnd-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: lnd
+  ports:
+    - name: lnd-rpc
+      port: 10009
+      protocol: TCP
+    - name: lnd-tcp
+      port: 9735
+      protocol: TCP
+    - name: btcd-tcp
+      port: 8333
+      protocol: TCP
+    - name: btcd-rpc
+      port: 8332
+      protocol: TCP

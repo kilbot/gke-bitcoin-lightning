@@ -5,9 +5,9 @@ metadata:
   labels:
     app: bitcoind
 spec:
+  type: NodePort
   ports:
     - port: 8333
       name: bitcoin
   selector:
     app: bitcoind
-  type: NodePort

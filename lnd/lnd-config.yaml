@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lnd
+  namespace: lnd-mainnet
+data:
+  externalip: 0.0.0.0
+  network: mainnet
+  alias: name
+  color: "#4e90ff"

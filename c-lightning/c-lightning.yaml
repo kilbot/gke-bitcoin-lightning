@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: c-lightning
+  labels:
+    app: c-lightning
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      app: c-lightning
+  template:
+    metadata:
+      labels:
+        app: c-lightning
+    spec:
+      containers:
+        - name: c-lightning
+          image: elementsproject/lightningd:latest
+          command:
+            - lightningd
+            - --bitcoin-rpcconnect=localhost
+            - --bitcoin-rpcuser=$(BITCOIN_RPC_USER)
+            - --bitcoin-rpcpassword=$(BITCOIN_RPC_PASSWORD)
+            - --network=bitcoin
+            - --alias=WooCommerce POS
+            - --rgb=008000
+            - --log-level=debug
+          env:
+            - name: BITCOIN_RPC_USER
+              valueFrom:
+                secretKeyRef:
+                  name: bitcoin-secret
+                  key: rpcuser
+            - name: BITCOIN_RPC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: bitcoin-secret
+                  key: rpcpass
+          ports:
+            - containerPort: 9735
+          volumeMounts:
+            - name: c-lightning-data
+              mountPath: /root/.lightning
+      volumes:
+        - name: c-lightning-data
+          persistentVolumeClaim:
+            claimName: c-lightning-pv-claim

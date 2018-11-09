@@ -1,7 +1,8 @@
 ## Step 1: Create a GKE cluster
 
 ```sh
-$ gcloud container clusters create gke-bitcoin-lightning --num-nodes=3
+# use --machine-type=n1-highmem-2 for first sync
+$ gcloud container clusters create gke-bitcoin-lightning --num-nodes=1 --enable-autoscaling --min-nodes=1 --max-nodes=3
 ```
 
 ## Step 2: Create your PersistentVolumes and PersistentVolumeClaims
