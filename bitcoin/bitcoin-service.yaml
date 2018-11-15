@@ -8,6 +8,8 @@ spec:
   type: NodePort
   ports:
     - port: 8333
-      name: bitcoin
+      name: mainnet
+    - port: 8332
+      name: rpc
   selector:
     app: bitcoind

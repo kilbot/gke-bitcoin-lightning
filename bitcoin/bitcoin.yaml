@@ -23,11 +23,11 @@ spec:
             - -server
             - -rest
             - -txindex
-            - -debug=rpc,http
-            - -dbcache=1024
-            - -rpcpassword=$(BITCOIN_RPC_USER)
             - -rpcuser=$(BITCOIN_RPC_PASSWORD)
-            - -rpcallowip=10.28.0.0/14
+            - -rpcpassword=$(BITCOIN_RPC_USER)
+            - -rpcallowip=0.0.0.0/0
+            - -rpcallowip=::/0
+            - -rpcbind=0.0.0.0
           env:
             - name: BITCOIN_RPC_USER
               valueFrom:
@@ -41,11 +41,17 @@ spec:
                   key: rpcpass
           ports:
             - containerPort: 8332
+              name: rpc
             - containerPort: 8333
+              name: mainnet
             - containerPort: 18332
+              name: test-rpc
             - containerPort: 18333
+              name: testnet
             - containerPort: 18443
+              name: regtest
             - containerPort: 18444
+              name: regtest-rpc
           volumeMounts:
             - name: bitcoind-data
               mountPath: /home/bitcoin/.bitcoin

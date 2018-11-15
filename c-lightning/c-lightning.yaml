@@ -21,7 +21,7 @@ spec:
           image: elementsproject/lightningd:latest
           command:
             - lightningd
-            - --bitcoin-rpcconnect=localhost
+            - --bitcoin-rpcconnect=bitcoind
             - --bitcoin-rpcuser=$(BITCOIN_RPC_USER)
             - --bitcoin-rpcpassword=$(BITCOIN_RPC_PASSWORD)
             - --network=bitcoin
@@ -41,6 +41,7 @@ spec:
                   key: rpcpass
           ports:
             - containerPort: 9735
+              name: c-lightning
           volumeMounts:
             - name: c-lightning-data
               mountPath: /root/.lightning
