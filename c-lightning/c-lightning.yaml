@@ -19,8 +19,7 @@ spec:
       containers:
         - name: c-lightning
           image: elementsproject/lightningd:latest
-          command:
-            - lightningd
+          args:
             - --bitcoin-rpcconnect=bitcoind
             - --bitcoin-rpcuser=$(BITCOIN_RPC_USER)
             - --bitcoin-rpcpassword=$(BITCOIN_RPC_PASSWORD)

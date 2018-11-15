@@ -23,8 +23,8 @@ spec:
             - -server
             - -rest
             - -txindex
-            - -rpcuser=$(BITCOIN_RPC_PASSWORD)
-            - -rpcpassword=$(BITCOIN_RPC_USER)
+            - -rpcuser=$(BITCOIN_RPC_USER)
+            - -rpcpassword=$(BITCOIN_RPC_PASSWORD)
             - -rpcallowip=0.0.0.0/0
             - -rpcallowip=::/0
             - -rpcbind=0.0.0.0
