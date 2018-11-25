@@ -19,6 +19,9 @@ spec:
       containers:
         - name: c-lightning
           image: elementsproject/lightningd:latest
+          resources:
+            requests:
+              cpu: 40m
           args:
             - --bitcoin-rpcconnect=bitcoind
             - --bitcoin-rpcuser=$(BITCOIN_RPC_USER)

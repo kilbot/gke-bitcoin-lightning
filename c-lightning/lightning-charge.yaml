@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lightning-charge
+  labels:
+    app: lightning-charge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lightning-charge
+  template:
+    metadata:
+      labels:
+        app: lightning-charge
+    spec:
+      containers:
+        - name: lightning-charge
+          image: node:latest
+          resources:
+            requests:
+              cpu: 40m
+          command:
+            [
+              "/bin/sh",
+              "-c",
+              "npm install -g --unsafe-perm --verbose lightning-charge && charged --api-token $(API_TOKEN)",
+            ]
+          env:
+            - name: API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: lightning-charge-secret
+                  key: api-token
+          ports:
+            - containerPort: 9112
+              name: charge-api
+          volumeMounts:
+            - name: c-lightning-data
+              mountPath: /root/.lightning
+      volumes:
+        - name: c-lightning-data
+          persistentVolumeClaim:
+            claimName: c-lightning-pv-claim

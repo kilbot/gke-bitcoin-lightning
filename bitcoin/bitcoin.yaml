@@ -19,6 +19,9 @@ spec:
       containers:
         - name: bitcoind
           image: ruimarinho/bitcoin-core:0.17
+          resources:
+            requests:
+              cpu: 40m
           args:
             - -server
             - -rest

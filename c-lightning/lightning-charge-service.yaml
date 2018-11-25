@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lightning-charge
+  labels:
+    app: lightning-charge
+spec:
+  type: NodePort
+  ports:
+    - port: 9112
+      name: charge-api
+  selector:
+    app: lightning-charge
