@@ -249,6 +249,7 @@ metadata:
 data:
   8333: "default/bitcoind:8333"
   9735: "default/c-lightning:9735"
+  433: "default/lightning-charge:9112"
 
 ---
 

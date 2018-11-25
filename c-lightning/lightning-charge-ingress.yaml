@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: lightning-charge-ingress
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "true"
+    kubernetes.io/tls-acme: "true"
+    certmanager.k8s.io/issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+    - hosts:
+        - lightning.wcpos.com
+      secretName: letsencrypt-prod
+  rules:
+    - host:
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: lightning-charge
+              servicePort: 9112

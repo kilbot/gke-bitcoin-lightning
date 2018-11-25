@@ -15,10 +15,8 @@ spec:
   ports:
     - name: http
       port: 80
-      targetPort: http
     - name: https
       port: 443
-      targetPort: https
     - name: bitcoind
       port: 8333
     - name: c-lightning

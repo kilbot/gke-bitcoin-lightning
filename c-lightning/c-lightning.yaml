@@ -29,6 +29,7 @@ spec:
             - --network=bitcoin
             - --alias=WooCommerce POS
             - --rgb=008000
+            - --announce-addr=35.226.45.125:9735
             - --log-level=debug
           env:
             - name: BITCOIN_RPC_USER

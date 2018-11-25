@@ -1,0 +1,19 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+  namespace: default
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: paul@kilbot.com.au
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    dns01:
+      providers:
+        - name: prod-cloudflare
+          cloudflare:
+            email: paul@kilbot.com.au
+            apiKeySecretRef:
+              name: cloudflare-api-key-secret
+              key: api-key
