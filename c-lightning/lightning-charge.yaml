@@ -24,7 +24,7 @@ spec:
             [
               "/bin/sh",
               "-c",
-              "npm install -g --unsafe-perm --verbose lightning-charge && charged --api-token $(API_TOKEN)",
+              "npm install -g --unsafe-perm --verbose lightning-charge && charged --api-token $(API_TOKEN) --host 0.0.0.0",
             ]
           env:
             - name: API_TOKEN
